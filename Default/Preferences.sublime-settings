@@ -28,7 +28,7 @@
     "gutter": true,
 
     // Spacing between the gutter and the text
-    "margin": 0,
+    "margin": 4,
 
     // Fold buttons are the triangles shown in the gutter to fold regions of text
     "fold_buttons": true,
@@ -37,16 +37,16 @@
     "fade_fold_buttons": true,
 
     // Columns in which to display vertical rulers
-    "rulers": [80, 120],
+    "rulers": [],
 
     // Set to true to turn spell checking on by default
     "spell_check": false,
 
     // The number of spaces a tab is considered equal to
-    "tab_size": 2,
+    "tab_size": 4,
 
     // Set to true to insert spaces when tab is pressed
-    "translate_tabs_to_spaces": true,
+    "translate_tabs_to_spaces": false,
 
     // If translate_tabs_to_spaces is true, use_tab_stops will make tab and
     // backspace insert/delete up to the next tabstop
@@ -77,7 +77,7 @@
 
     // Set to a value other than 0 to force wrapping at that column rather than the
     // window width
-    "wrap_width": 160,
+    "wrap_width": 0,
 
     // Set to false to prevent word wrapped lines from being indented to the same
     // level
@@ -95,7 +95,7 @@
     // Set to true to draw a border around the visible rectangle on the minimap.
     // The color of the border will be determined by the "minimapBorder" key in
     // the color scheme
-    "draw_minimap_border": true,
+    "draw_minimap_border": false,
 
     // If enabled, will highlight any line with a caret
     "highlight_line": false,
@@ -161,11 +161,11 @@
     "indent_guide_options": ["draw_normal"],
 
     // Set to true to removing trailing white space on save
-    "trim_trailing_white_space_on_save": true,
+    "trim_trailing_white_space_on_save": false,
 
     // Set to true to ensure the last line of the file ends in a newline
     // character when saving
-    "ensure_newline_at_eof_on_save": true,
+    "ensure_newline_at_eof_on_save": false,
 
     // Set to true to automatically save files when switching to a different file
     // or application
@@ -173,7 +173,7 @@
 
     // The encoding to use when the encoding can't be determined automatically.
     // ASCII, UTF-8 and UTF-16 encodings will be automatically detected.
-    "fallback_encoding": "UTF-8",
+    "fallback_encoding": "Western (Windows 1252)",
 
     // Encoding used when saving new files, and files opened with an undefined
     // encoding (e.g., plain ascii files). If a file is opened with a specific
@@ -215,7 +215,7 @@
     // This setting can be used to make it complete on tab instead.
     // Completing on tab is generally a superior option, as it removes
     // ambiguity between committing the completion and inserting a newline.
-    "auto_complete_commit_on_tab": true,
+    "auto_complete_commit_on_tab": false,
 
     // Controls if auto complete is shown when snippet fields are active.
     // Only relevant if auto_complete_commit_on_tab is true.
@@ -287,14 +287,14 @@
     // folder_exclude_patterns and file_exclude_patterns control which files
     // are listed in folders on the side bar. These can also be set on a per-
     // project basis.
-    "folder_exclude_patterns": [".svn", ".git", ".hg", "CVS", "bin", "obj", "tmp", "lib"],
-    "file_exclude_patterns": ["*.pyc", "*.pyo", "*.exe", "*.dll", "*.obj","*.o",
-        "*.a", "*.lib", "*.so", "*.dylib", "*.ncb", "*.sdf", "*.suo", "*.pdb", "*.idb",
-        ".DS_Store", "*.class", "*.psd", "*.db", "*.user", "*.cache", "*.min.js",
-        "*.min.css", "*.map.js", "*.log", "*.log.*"],
+    "folder_exclude_patterns": [".svn", ".git", ".hg", "CVS"],
+    "file_exclude_patterns": ["*.pyc", "*.pyo", "*.exe", "*.dll", "*.obj","*.o", "*.a", "*.lib", "*.so", "*.dylib", "*.ncb", "*.sdf", "*.suo", "*.pdb", "*.idb", ".DS_Store", "*.class", "*.psd", "*.db"],
+
+
+
     // These files will still show up in the side bar, but won't be included in
     // Goto Anything or Find in Files
-    "binary_file_patterns": ["*.jpg", "*.jpeg", "*.png", "*.gif", "*.ttf", "*.tga", "*.dds", "*.ico", "*.eot", "*.pdf", "*.swf", "*.jar", "*.zip", "*.dll", "*.pdb"],
+    "binary_file_patterns": ["*.jpg", "*.jpeg", "*.png", "*.gif", "*.ttf", "*.tga", "*.dds", "*.ico", "*.eot", "*.pdf", "*.swf", "*.jar", "*.zip"],
 
     // List any packages to ignore here. When removing entries from this list,
     // a restart may be required if the package contains plugins.

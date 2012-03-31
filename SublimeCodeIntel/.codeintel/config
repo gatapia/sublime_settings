@@ -1,0 +1,16 @@
+{
+	"Python": {
+		"pythonExtraPaths": [
+			"libs",
+			"~/Applications/Sublime Text 2.app/Contents/MacOS",
+			"/Applications/Sublime Text 2.app/Contents/MacOS"
+		]
+	},
+  "JavaScript": {
+    "javascriptExtraPaths": [
+      "U:/shared/lib/closure-library/closure/goog",
+      "U:\\shared\\lib\\picnet_closure_repo\\src",
+      "U:\\shared\\lib\\tablefilter\\src"
+    ]
+  }
+}

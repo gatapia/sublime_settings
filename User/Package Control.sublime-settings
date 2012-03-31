@@ -1,10 +1,11 @@
 {
-	"auto_upgrade_last_run": 1333152443,
+	"auto_upgrade_last_run": 1333164057,
 	"installed_packages":
 	[
 		"DocBlockr",
 		"Git",
 		"Package Control",
-		"SublimeCodeIntel"
+		"SublimeCodeIntel",
+		"Theme - Soda"
 	]
 }
