@@ -1,0 +1,10 @@
+{
+	"auto_upgrade_last_run": 1333152443,
+	"installed_packages":
+	[
+		"DocBlockr",
+		"Git",
+		"Package Control",
+		"SublimeCodeIntel"
+	]
+}

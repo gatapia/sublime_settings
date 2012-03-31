@@ -1,0 +1,5 @@
+{
+  "cmd": ["clean_and_compile.bat"],
+  "working_dir": "${project_path:${folder}}",
+  "selector": "source.js"
+}
