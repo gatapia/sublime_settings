@@ -1,26 +1,83 @@
 {
+	"auto_complete_commit_on_tab": true,
+	"binary_file_patterns":
+	[
+		"*.jpg",
+		"*.jpeg",
+		"*.png",
+		"*.gif",
+		"*.ttf",
+		"*.tga",
+		"*.dds",
+		"*.ico",
+		"*.eot",
+		"*.pdf",
+		"*.swf",
+		"*.jar",
+		"*.zip",
+		"*.dll",
+		"*.pdb"
+	],
 	"color_scheme": "Packages/Color Scheme - Default/Solarized (Dark).tmTheme",
+	"draw_minimap_border": true,
+	"ensure_newline_at_eof_on_save": true,
+	"fallback_encoding": "UTF-8",
+	"file_exclude_patterns":
+	[
+		"*.pyc",
+		"*.pyo",
+		"*.exe",
+		"*.dll",
+		"*.obj",
+		"*.o",
+		"*.a",
+		"*.lib",
+		"*.so",
+		"*.dylib",
+		"*.ncb",
+		"*.sdf",
+		"*.suo",
+		"*.pdb",
+		"*.idb",
+		".DS_Store",
+		"*.class",
+		"*.psd",
+		"*.db",
+		"*.user",
+		"*.cache",
+		"*.min.js",
+		"*.min.css",
+		"*.map.js",
+		"*.log",
+		"*.log.*"
+	],
+	"folder_exclude_patterns":
+	[
+		".svn",
+		".git",
+		".hg",
+		"CVS",
+		"bin",
+		"obj",
+		"tmp",
+		"lib"
+	],
 	"font_face": "Consolas",
 	"font_size": 11.0,
+	"highlight_line": true,
 	"ignored_packages":
 	[
 		"Vintage"
 	],
+	"margin": 0,
+	"rulers":
+	[
+		80,
+		120
+	],
+	"tab_size": 2,
 	"theme": "Soda Light.sublime-theme",
-  "margin": 0,
-  "rulers": [80, 120],
-  "tab_size": 2,
-  "translate_tabs_to_spaces": true,
-  "wrap_width": 160,
-  "draw_minimap_border": true,
-  "trim_trailing_white_space_on_save": true,
-  "ensure_newline_at_eof_on_save": true,
-  "fallback_encoding": "UTF-8",
-  "auto_complete_commit_on_tab": true,
-  "folder_exclude_patterns": [".svn", ".git", ".hg", "CVS", "bin", "obj", "tmp", "lib"],
-  "file_exclude_patterns": ["*.pyc", "*.pyo", "*.exe", "*.dll", "*.obj","*.o",
-      "*.a", "*.lib", "*.so", "*.dylib", "*.ncb", "*.sdf", "*.suo", "*.pdb", "*.idb",
-      ".DS_Store", "*.class", "*.psd", "*.db", "*.user", "*.cache", "*.min.js",
-      "*.min.css", "*.map.js", "*.log", "*.log.*"],
-  "binary_file_patterns": ["*.jpg", "*.jpeg", "*.png", "*.gif", "*.ttf", "*.tga", "*.dds", "*.ico", "*.eot", "*.pdf", "*.swf", "*.jar", "*.zip", "*.dll", "*.pdb"]
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true,
+	"wrap_width": 160
 }

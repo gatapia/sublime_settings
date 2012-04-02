@@ -1,0 +1,291 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"for",
+				"format"
+			],
+			[
+				"Messa",
+				"MessagePanel"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 375.0,
+		"selected_items":
+		[
+			[
+				"pc:",
+				"Package Control: Discover Packages"
+			],
+			[
+				"pc:in",
+				"Package Control: Install Package"
+			],
+			[
+				"pc:d",
+				"Package Control: Discover Packages"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 386.0
+	},
+	"console":
+	{
+		"height": 146.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/dev/tools/sublime/Data/Packages/SublimeLinter/SublimeLinter.sublime-settings",
+		"/C/dev/tools/sublime/Data/Packages/SublimeLinter/sublimelinter/modules/javascript.py",
+		"/C/dev/libs/bins/gjslint.bat",
+		"/C/dev/tools/sublime/Data/Packages/Default/Default (Windows).sublime-keymap",
+		"/C/dev/projects/accc/accc.sublime-project",
+		"/C/dev/projects/accc/PicNet.Accc.Mvc/resources/scripts/src/pn.accc/DataLoader.js",
+		"/C/dev/tools/sublime/Data/Packages/GoogClosure/GoogClosure.py",
+		"/C/dev/projects/accc/PicNet.Accc/Mvc/Controllers/Data/DataController.cs",
+		"/C/dev/shared/lib/picnet_lib/PicNet2/PicNet2.Web/Controllers/EntityHelpers/EntityToJson.cs",
+		"/C/dev/projects/accc/PicNet.Accc/Mvc/Controllers/Data/AcccEntitySaver.cs",
+		"/C/dev/tools/sublime_codeintel_src/Main.sublime-menu",
+		"/C/dev/tools/sublime_codeintel_src/libs/codeintel2/stdlibs/javascript.cix",
+		"/C/dev/tools/sublime_codeintel_src/libs/codeintel2/lib_srcs/node.js/fs.js",
+		"/C/dev/tools/sublime_codeintel_src/SublimeCodeIntel.py",
+		"/C/dev/tools/sublime_codeintel_src/libs/codeintel2/catalogs/rails.cix",
+		"/C/dev/tools/sublime_codeintel_src/libs/codeintel2/lexers/ActionScript.lexres",
+		"/C/dev/tools/sublime_codeintel_src/libs/codeintel2/lang_javascript.py",
+		"/C/dev/tools/sublime_codeintel_src/libs/codeintel2/catalogs/dojo.cix",
+		"/C/dev/tools/sublime_codeintel_src/README.rst",
+		"/C/dev/tools/sublime_codeintel_src/LICENSE.txt",
+		"/C/dev/tools/sublime_codeintel_src/.gitignore",
+		"/C/dev/tools/sublime_codeintel_src/Default (Linux).sublime-mousemap",
+		"/C/dev/tools/sublime_codeintel_src/Base File.sublime-settings",
+		"/C/dev/tools/sublime_codeintel_src/Default (Linux).sublime-keymap",
+		"/C/dev/tools/sublime_codeintel_src/package_control.json",
+		"/C/dev/tools/sublime/Data/Packages/Default/Default.sublime-commands",
+		"/C/dev/tools/sublime/Data/Packages/Vintage/vintage.py",
+		"/C/Users/gatapia/.codeintel/codeintel.log",
+		"/C/dev/tools/sublime/Data/Packages/JavaScript/JSON.tmLanguage",
+		"/C/dev/tools/sublime/Data/Packages/JavaScript/if-___-else.sublime-snippet",
+		"/C/dev/tools/sublime/Data/Packages/Diff/Context.sublime-menu",
+		"/C/dev/tools/sublime/Data/Packages/JavaScript/Completion Rules.tmPreferences",
+		"/C/dev/tools/sublime/Data/Packages/JavaScript/JavaScript.tmLanguage",
+		"/C/dev/tools/sublime/Data/Packages/JavaScript/Prototype-(proto).sublime-snippet",
+		"/C/dev/tools/sublime/Data/Packages/C#/Build.tmLanguage",
+		"/C/dev/tools/sublime/Data/Packages/C#/C#.tmLanguage",
+		"/C/dev/projects/accc/PicNet.Accc.Mvc/resources/scripts/src/pn.accc/ui/AttachmentRenderer.js",
+		"/C/dev/projects/accc/PicNet.Accc.Mvc/resources/scripts/src/pn/ui/edit/ComplexRenderer.js",
+		"/C/Users/gatapia/.codeintel/config",
+		"/C/dev/projects/accc/PicNet.Accc.Mvc/resources/scripts/src/pn/data/EntityFilter.js",
+		"/C/dev/projects/accc/PicNet.Accc.Mvc/resources/scripts/src/pn/ui/DateRangePicker.js",
+		"/U/shared/lib/closure-library/closure/goog/ui/datepicker.js",
+		"/U/shared/lib/closure-library/closure/goog/ui/component.js",
+		"/C/dev/tools/sublime/Data/Packages/SublimeCodeIntel/.codeintel/config",
+		"/C/dev/resharper_code_style.xml",
+		"/C/Users/gatapia/.codeintel/README.txt",
+		"/C/dev/tools/sublime/Data/Packages/User/Preferences.sublime-settings",
+		"/C/dev/tools/sublime/Data/Packages/SublimeCodeIntel/Base File.sublime-settings",
+		"/C/dev/projects/accc/PicNet.Accc.Mvc/resources/scripts/src/pn.accc/Application.js",
+		"/C/dev/tools/sublime/Data/Packages/Default/Preferences.sublime-settings",
+		"/C/dev/projects/accc/PicNet.Accc.Mvc/resources/scripts/src/pn.accc/ui/ViewMgr.js",
+		"/C/dev/projects/accc/PicNet.Accc.Mvc/resources/scripts/src/pn/dom.js",
+		"/C/dev/projects/accc/PicNet.Accc.Mvc/resources/scripts/src/pn/convert.js",
+		"/C/dev/projects/accc/PicNet.Accc.Mvc/resources/scripts/src/pn.accc/AppEvents.js",
+		"/C/dev/tools/sublime/Data/Packages/SublimeLinter/README.rst",
+		"/C/dev/projects/accc/cleancode.bat",
+		"/C/dev/projects/accc/compile.bat"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			";",
+			"javascript_linter",
+			"\"javascript_linter",
+			".javascript_linter",
+			"javascript_linter",
+			"true",
+			"gjs",
+			"join",
+			"show_panel",
+			"\"show_panel\"",
+			"\" },",
+			"+i",
+			"home",
+			"run_command",
+			"goog.ui",
+			"Search",
+			"goog.",
+			"goog",
+			"trim",
+			"	",
+			"  ",
+			"goog",
+			"javascript"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"\"show_panel\"",
+			"  "
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 33.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"entity",
+				"PicNet.Accc/Mvc/Controllers/Data/AcccEntitySaver.cs"
+			],
+			[
+				"data",
+				"PicNet.Accc/Mvc/Controllers/Data/DataController.cs"
+			],
+			[
+				"entitys",
+				"PicNet.Accc.Mvc/resources/scripts/src/pn/data/EntityFilter.js"
+			],
+			[
+				"atta",
+				"PicNet.Accc.Mvc/resources/scripts/src/pn.accc/ui/AttachmentRenderer.js"
+			],
+			[
+				"app",
+				"PicNet.Accc.Mvc/resources/scripts/src/pn.accc/Application.js"
+			],
+			[
+				"ap",
+				"PicNet.Accc.Mvc/resources/scripts/src/pn.accc/Application.js"
+			],
+			[
+				"application",
+				"PicNet.Accc.Mvc/resources/scripts/src/pn.accc/Application.js"
+			],
+			[
+				"acccevent",
+				"PicNet.Accc.Mvc/resources/scripts/src/pn.accc/AppEvents.js"
+			],
+			[
+				"appli",
+				"PicNet.Accc.Mvc/resources/scripts/src/pn.accc/Application.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"acc",
+				"/C/dev/projects/accc/accc.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 299.0,
+	"status_bar_visible": true
+}
