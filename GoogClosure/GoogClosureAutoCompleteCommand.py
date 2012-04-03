@@ -3,6 +3,7 @@ import sublime_plugin
 import re
 import logging
 import os
+import pickle
 
 # Globals
 goog_closure_database = None
@@ -26,9 +27,18 @@ class GoogClosureAutoCompleteCommand(sublime_plugin.EventListener):
         log.info("completion ignored as database is not initialised")
         return
 
+    compl_default = [view.extract_completions(prefix)]
+    compl_default = [(item + "\tDefault", item) for sublist in compl_default
+       for item in sublist if len(item) > 3]
+    compl_default = list(set(compl_default))
+
     path = self.get_path_for_completion(view, prefix, locations)
-    completions = [(x, x) for x in self.get_completions_from_path(path)]
-    return completions
+    raw_completions = self.get_completions_from_path(path)
+    raw_completions.sort()
+    completions = [(x, x) for x in raw_completions]
+    completions.extend(compl_default)
+    return (completions, sublime.INHIBIT_WORD_COMPLETIONS |
+      sublime.INHIBIT_EXPLICIT_COMPLETIONS)
 
   def get_path_for_completion(self, view, prefix, locations):
     line_region = view.line(sublime.Region(locations[0]))
@@ -57,7 +67,6 @@ class GoogClosureAutoCompleteCommand(sublime_plugin.EventListener):
       return []
 
     completions = node.keys()
-    completions.sort()
     print('auto_complete - completions: {0}'.format(completions))
     return completions
 
@@ -66,9 +75,6 @@ class GoogClosureAutoCompleteCommand(sublime_plugin.EventListener):
       return []
     completions = node.keys()
     completions = filter(lambda c: c.startswith(step), completions)
-    completions.sort()
-
-    print('auto_complete (partial) - completions: {0}'.format(completions))
     return completions
 
 
@@ -81,14 +87,19 @@ class GoogClosureInitDatabaseCommand(sublime_plugin.EventListener):
       ("J:\\dev\\projects\\accc\\PicNet.Accc.Mvc\\resources\\scripts\\src\\pn.accc\\", "../../../../accc/resources/scripts/src/pn.accc/"),
       ("U:\\shared\\lib\\picnet_closure_repo\\src\\pn", "../../../../../../../shared/picnet_closure_repo/src/pn/"),
       ("U:\\shared\\lib\\tablefilter\\src\\pn\\ui\\filter", "../../../../../../../shared/tablefilter/src/pn/ui/filter/"),
-      ("U:\\shared\\lib\\closure-templates", "../../../../../../../shared/closure-templates/")  
+      ("U:\\shared\\lib\\closure-templates", "../../../../../../../shared/closure-templates/")
     ]
     self.init_database()
 
   def init_database(self):
     global goog_closure_database
-    if (goog_closure_database != None):
+    if goog_closure_database != None:
       return
+    if os.path.exists('goog_closure_autocomplete.db'):
+      with open('goog_closure_autocomplete.db', 'r') as file:
+        goog_closure_database = pickle.load(file)
+      return
+
     log.info('Initialising the google closure auto-comlete database.')
     goog_closure_database = {'parsed_deps_files': [], 'deps': {}, 'deps_tree': {}}
 
@@ -96,6 +107,9 @@ class GoogClosureInitDatabaseCommand(sublime_plugin.EventListener):
     goog_deps = os.path.join(os.path.dirname(basejs_file), 'deps.js')
     settings['deps_paths'].insert(0, goog_deps)
     self.cache_all_deps()
+
+    with open('goog_closure_autocomplete.db', 'wb') as file:
+      pickle.dump(goog_closure_database, file)
 
   def cache_all_deps(self):
     for deps_file in settings['deps_paths']:
@@ -132,10 +146,12 @@ class GoogClosureInitDatabaseCommand(sublime_plugin.EventListener):
       if file.startswith(root[1]):
         file = file[len(root[1]):]
         abs_file = os.path.join(root[0], file)
-        if not (os.path.exists(abs_file)):
-          print 'could not find file:', abs_file
-          return
-        self.add_file_members_to_tree_impl(namespaces_provided, abs_file)
+        if os.path.exists(abs_file):
+          self.add_file_members_to_tree_impl(namespaces_provided, abs_file)
+        return
+    abs_file = settings['basejs_file'].replace('base.js', file)
+    if file.find('..') < 0 and os.path.exists(abs_file):
+      self.add_file_members_to_tree_impl(namespaces_provided, abs_file)
 
   def add_file_members_to_tree_impl(self, namespaces_provided, file):
     curr_namespace = ''
@@ -152,7 +168,7 @@ class GoogClosureInitDatabaseCommand(sublime_plugin.EventListener):
           continue
 
         match1 = member1_regex.search(line)
-        match2 = member1_regex.match(line)
+        match2 = member2_regex.match(line)
         if (match1):
           self.add_node_to_tree(curr_namespace + '.' + match1.group(1))
         if (match2):
