@@ -10,6 +10,9 @@ log = logging.getLogger('googclosure')
 log.setLevel(logging.DEBUG)
 parse_deps_regex = re.compile('^goog\.addDependency\(\'([^\']+)\'\, \[([^\]]+)\], \[([^\]]+)\]\);')
 namespace_regex = re.compile('(^.*[^a-zA-Z0-9_.]|^)([a-zA-Z0-9_.]+)$')
+member1_regex = re.compile('this.([a-zA-Z0-9_]+)')
+member2_regex = re.compile('(^[a-zA-Z0-9_.]*\.|^)([a-zA-Z0-9_]+) ')
+settings = {}
 TESTING = True
 
 
@@ -71,23 +74,31 @@ class GoogClosureAutoCompleteCommand(sublime_plugin.EventListener):
 
 class GoogClosureInitDatabaseCommand(sublime_plugin.EventListener):
   def on_load(self, view):
-    base_file = 'U:\\shared\\lib\\closure-library\\closure\\goog\\base.js'
-    deps_paths = ['J:\\dev\\projects\\accc\\PicNet.Accc.Mvc\\resources\\scripts\\src\\deps.js']
-    self.init_database(base_file, deps_paths)
+    global settings
+    settings['basejs_file'] = 'U:\\shared\\lib\\closure-library\\closure\\goog\\base.js'
+    settings['deps_paths'] = ['J:\\dev\\projects\\accc\\PicNet.Accc.Mvc\\resources\\scripts\\src\\deps.js']
+    settings['roots'] = [
+      ("J:\\dev\\projects\\accc\\PicNet.Accc.Mvc\\resources\\scripts\\src\\pn.accc\\", "../../../../accc/resources/scripts/src/pn.accc/"),
+      ("U:\\shared\\lib\\picnet_closure_repo\\src\\pn", "../../../../../../../shared/picnet_closure_repo/src/pn/"),
+      ("U:\\shared\\lib\\tablefilter\\src\\pn\\ui\\filter", "../../../../../../../shared/tablefilter/src/pn/ui/filter/"),
+      ("U:\\shared\\lib\\closure-templates", "../../../../../../../shared/closure-templates/")  
+    ]
+    self.init_database()
 
-  def init_database(self, base_file, deps_paths):
+  def init_database(self):
     global goog_closure_database
     if (goog_closure_database != None):
       return
     log.info('Initialising the google closure auto-comlete database.')
     goog_closure_database = {'parsed_deps_files': [], 'deps': {}, 'deps_tree': {}}
 
-    goog_deps = os.path.join(os.path.dirname(base_file), 'deps.js')
-    deps_paths.insert(0, goog_deps)
-    self.cache_all_deps(deps_paths)
+    basejs_file = settings['basejs_file']
+    goog_deps = os.path.join(os.path.dirname(basejs_file), 'deps.js')
+    settings['deps_paths'].insert(0, goog_deps)
+    self.cache_all_deps()
 
-  def cache_all_deps(self, deps_paths):
-    for deps_file in deps_paths:
+  def cache_all_deps(self):
+    for deps_file in settings['deps_paths']:
       self.parse_deps(deps_file)
 
   def parse_deps(self, deps_file):
@@ -108,12 +119,44 @@ class GoogClosureInitDatabaseCommand(sublime_plugin.EventListener):
     namespaces_provided = match.group(2).replace('\'', '').replace(' ', '').split(',')
     namespaces_required = match.group(3).replace('\'', '').replace(' ', '').split(',')
     goog_closure_database['deps'][js_file] = {'namespaces_provided': namespaces_provided, 'namespaces_required': namespaces_required}
-    self.expand_tree(namespaces_provided)
+    self.add_paths_to_tree(namespaces_provided)
+    self.add_file_members_to_tree(namespaces_provided, js_file)
     log.debug("File: {0} provided: {1} required: {2}", js_file, namespaces_provided, namespaces_required)
 
-  def expand_tree(self, namespaces_provided):
+  def add_paths_to_tree(self, namespaces_provided):
     for ns in namespaces_provided:
       self.add_node_to_tree(ns)
+
+  def add_file_members_to_tree(self, namespaces_provided, file):
+    for root in settings['roots']:
+      if file.startswith(root[1]):
+        file = file[len(root[1]):]
+        abs_file = os.path.join(root[0], file)
+        if not (os.path.exists(abs_file)):
+          print 'could not find file:', abs_file
+          return
+        self.add_file_members_to_tree_impl(namespaces_provided, abs_file)
+
+  def add_file_members_to_tree_impl(self, namespaces_provided, file):
+    curr_namespace = ''
+    with open(file, 'r') as file_stream:
+      for line in file_stream:
+        matching_namespaces = filter(lambda ns: line.find(ns) >= 0, namespaces_provided)
+        if (curr_namespace == '' and len(matching_namespaces) == 0):
+          continue
+        if (len(matching_namespaces) > 1):
+          matching_namespaces.sort(lambda x, y: cmp(len(y), len(x)))
+        if (len(matching_namespaces) > 0):
+          curr_namespace = matching_namespaces[0]
+        if (len(curr_namespace) == 0):
+          continue
+
+        match1 = member1_regex.search(line)
+        match2 = member1_regex.match(line)
+        if (match1):
+          self.add_node_to_tree(curr_namespace + '.' + match1.group(1))
+        if (match2):
+          self.add_node_to_tree(curr_namespace + '.' + match2.group(2))
 
   def add_node_to_tree(self, node):
     path = node.split('.')
