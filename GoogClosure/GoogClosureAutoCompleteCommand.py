@@ -4,9 +4,12 @@ import re
 import logging
 import os
 import pickle
+import thread
+import threading
 
 # Globals
 goog_closure_database = None
+initialising = False
 log = logging.getLogger('googclosure')
 log.setLevel(logging.DEBUG)
 
@@ -41,7 +44,7 @@ class GoogClosureAutoCompleteCommand(sublime_plugin.EventListener):
   def on_query_completions(self, view, prefix, locations):
     if goog_closure_database == None:
       if TESTING:
-        GoogClosureInitDatabaseCommand().on_load(None)
+        GoogClosureInitDatabaseCommand().on_load(view)
       else:
         log.info("completion ignored as database is not initialised")
         return
@@ -52,6 +55,9 @@ class GoogClosureAutoCompleteCommand(sublime_plugin.EventListener):
     compl_default = list(set(compl_default))
 
     path = self.get_path_for_completion(view, prefix, locations)
+    if not(path):
+      return []
+
     raw_completions = self.get_completions_from_path(path)
     raw_completions.sort()
     completions = [(x, x) for x in raw_completions]
@@ -70,7 +76,7 @@ class GoogClosureAutoCompleteCommand(sublime_plugin.EventListener):
       return None
 
   def get_completions_from_path(self, path):
-    if not(path):
+    if not(path) or not(goog_closure_database):
       return []
 
     root = goog_closure_database['deps_tree']
@@ -99,18 +105,36 @@ class GoogClosureAutoCompleteCommand(sublime_plugin.EventListener):
 
 class GoogClosureInitDatabaseCommand(sublime_plugin.EventListener):
   def on_load(self, view):
-    self.init_database()
+    self.init_database(view)
 
-  def init_database(self):
+  def init_database(self, view):
     global goog_closure_database
-    if goog_closure_database != None:
+    global initialising
+    if initialising or goog_closure_database != None:
       return
+    a_lock = thread.allocate_lock()
+    with a_lock:
+      if initialising:
+        return
+      initialising = True
+
+    bg_thread = threading.Thread(target=self.background_init_database, args=[view])
+    bg_thread.start()
+
+  def background_init_database(self, view):
+    sublime.set_timeout(lambda: view.set_status('googclosure', 'Initialising Google Closure Caches'), 1)
+    self.background_init_database_impl(view)
+    sublime.set_timeout(lambda: view.erase_status('googclosure'), 1)
+
+  def background_init_database_impl(self, view):
+    global goog_closure_database
     if os.path.exists('goog_closure_autocomplete.db'):
       with open('goog_closure_autocomplete.db', 'r') as file:
         goog_closure_database = pickle.load(file)
       # TODO: GO through and compare timestamps and update any changes since last saving the database
       return
 
+    # TODO: All this should be done in the background
     log.info('Initialising the google closure auto-comlete database.')
     goog_closure_database = {'parsed_deps_files': [], 'deps': {}, 'deps_tree': {}}
 
@@ -191,6 +215,8 @@ class GoogClosureInitDatabaseCommand(sublime_plugin.EventListener):
           self.add_node_to_tree(curr_namespace + '.' + match2.group(2))
 
   def add_node_to_tree(self, node):
+    if node.endswith('_'): # Ignore private members
+      return
     path = node.split('.')
     current_node = goog_closure_database['deps_tree']
     for step in path:
