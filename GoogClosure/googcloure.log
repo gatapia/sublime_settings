@@ -1,0 +1,3 @@
+2012-04-04 16:01:25,467 - goog_closure - INFO - on_query_completions prefix: get_real_path_for_file
+2012-04-04 16:01:25,467 - goog_closure - INFO - Already initialised
+2012-04-04 16:01:25,469 - goog_closure - INFO - auto_complete - completions: []
