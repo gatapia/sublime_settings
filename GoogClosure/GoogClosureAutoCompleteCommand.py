@@ -9,16 +9,35 @@ import pickle
 goog_closure_database = None
 log = logging.getLogger('googclosure')
 log.setLevel(logging.DEBUG)
+
+# REGEX
 parse_deps_regex = re.compile('^goog\.addDependency\(\'([^\']+)\'\, \[([^\]]+)\], \[([^\]]+)\]\);')
 namespace_regex = re.compile('(^.*[^a-zA-Z0-9_.]|^)([a-zA-Z0-9_.]+)$')
 member1_regex = re.compile('this.([a-zA-Z0-9_]+)')
 member2_regex = re.compile('(^[a-zA-Z0-9_.]*\.|^)([a-zA-Z0-9_]+) ')
-settings = {}
+
+# TODO: Move to plugin settings file
+settings = {
+  'basejs_file': 'U:\\shared\\lib\\closure-library\\closure\\goog\\base.js',
+  'deps_paths': ['J:\\dev\\projects\\accc\\PicNet.Accc.Mvc\\resources\\scripts\\src\\deps.js'],
+  'roots': [
+    ("J:\\dev\\projects\\accc\\PicNet.Accc.Mvc\\resources\\scripts\\src\\pn.accc\\", "../../../../accc/resources/scripts/src/pn.accc/"),
+    ("U:\\shared\\lib\\picnet_closure_repo\\src\\pn", "../../../../../../../shared/picnet_closure_repo/src/pn/"),
+    ("U:\\shared\\lib\\tablefilter\\src\\pn\\ui\\filter", "../../../../../../../shared/tablefilter/src/pn/ui/filter/"),
+    ("U:\\shared\\lib\\closure-templates", "../../../../../../../shared/closure-templates/")
+  ]
+}
+
 TESTING = True
 
 
 # Classes
 class GoogClosureAutoCompleteCommand(sublime_plugin.EventListener):
+  # TODO: Refresh cached completions on save
+  def on_pre_save(self, view):
+    if goog_closure_database == None:
+      return
+
   def on_query_completions(self, view, prefix, locations):
     if goog_closure_database == None:
       if TESTING:
@@ -80,15 +99,6 @@ class GoogClosureAutoCompleteCommand(sublime_plugin.EventListener):
 
 class GoogClosureInitDatabaseCommand(sublime_plugin.EventListener):
   def on_load(self, view):
-    global settings
-    settings['basejs_file'] = 'U:\\shared\\lib\\closure-library\\closure\\goog\\base.js'
-    settings['deps_paths'] = ['J:\\dev\\projects\\accc\\PicNet.Accc.Mvc\\resources\\scripts\\src\\deps.js']
-    settings['roots'] = [
-      ("J:\\dev\\projects\\accc\\PicNet.Accc.Mvc\\resources\\scripts\\src\\pn.accc\\", "../../../../accc/resources/scripts/src/pn.accc/"),
-      ("U:\\shared\\lib\\picnet_closure_repo\\src\\pn", "../../../../../../../shared/picnet_closure_repo/src/pn/"),
-      ("U:\\shared\\lib\\tablefilter\\src\\pn\\ui\\filter", "../../../../../../../shared/tablefilter/src/pn/ui/filter/"),
-      ("U:\\shared\\lib\\closure-templates", "../../../../../../../shared/closure-templates/")
-    ]
     self.init_database()
 
   def init_database(self):
@@ -98,6 +108,7 @@ class GoogClosureInitDatabaseCommand(sublime_plugin.EventListener):
     if os.path.exists('goog_closure_autocomplete.db'):
       with open('goog_closure_autocomplete.db', 'r') as file:
         goog_closure_database = pickle.load(file)
+      # TODO: GO through and compare timestamps and update any changes since last saving the database
       return
 
     log.info('Initialising the google closure auto-comlete database.')
@@ -129,7 +140,10 @@ class GoogClosureInitDatabaseCommand(sublime_plugin.EventListener):
     match = parse_deps_regex.match(line)
     if not(match):
       return
-    js_file = match.group(1)
+    js_file = self.get_real_path_for_file(match.group(1))
+    if js_file == None:
+      return
+
     namespaces_provided = match.group(2).replace('\'', '').replace(' ', '').split(',')
     namespaces_required = match.group(3).replace('\'', '').replace(' ', '').split(',')
     goog_closure_database['deps'][js_file] = {'namespaces_provided': namespaces_provided, 'namespaces_required': namespaces_required}
@@ -137,23 +151,25 @@ class GoogClosureInitDatabaseCommand(sublime_plugin.EventListener):
     self.add_file_members_to_tree(namespaces_provided, js_file)
     log.debug("File: {0} provided: {1} required: {2}", js_file, namespaces_provided, namespaces_required)
 
+  def get_real_path_for_file(self, file):
+    if file.find('..') < 0:
+      abs_file = os.path.normpath(settings['basejs_file'].replace('base.js', file))
+      if os.path.exists(abs_file):
+        return abs_file
+    else:
+      for root in settings['roots']:
+        if file.startswith(root[1]):
+          file = file[len(root[1]):]
+          abs_file = os.path.normpath(os.path.join(root[0], file))
+          if os.path.exists(abs_file):
+            return abs_file
+    return None
+
   def add_paths_to_tree(self, namespaces_provided):
     for ns in namespaces_provided:
       self.add_node_to_tree(ns)
 
   def add_file_members_to_tree(self, namespaces_provided, file):
-    for root in settings['roots']:
-      if file.startswith(root[1]):
-        file = file[len(root[1]):]
-        abs_file = os.path.join(root[0], file)
-        if os.path.exists(abs_file):
-          self.add_file_members_to_tree_impl(namespaces_provided, abs_file)
-        return
-    abs_file = settings['basejs_file'].replace('base.js', file)
-    if file.find('..') < 0 and os.path.exists(abs_file):
-      self.add_file_members_to_tree_impl(namespaces_provided, abs_file)
-
-  def add_file_members_to_tree_impl(self, namespaces_provided, file):
     curr_namespace = ''
     with open(file, 'r') as file_stream:
       for line in file_stream:
