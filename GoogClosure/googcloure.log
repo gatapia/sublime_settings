@@ -1,3 +1,49 @@
-2012-04-04 16:01:25,467 - goog_closure - INFO - on_query_completions prefix: get_real_path_for_file
-2012-04-04 16:01:25,467 - goog_closure - INFO - Already initialised
-2012-04-04 16:01:25,469 - goog_closure - INFO - auto_complete - completions: []
+2012-04-05 11:20:11,486 - goog_closure - DEBUG - Database is not initialised so ignoring this save event.
+2012-04-05 11:20:17,118 - goog_closure - DEBUG - on_query_completions prefix: 
+2012-04-05 11:20:17,118 - goog_closure - DEBUG - In TESTING - creating database (This would not happen in prod).
+2012-04-05 11:20:24,434 - goog_closure - DEBUG - Database is not initialised so ignoring this save event.
+2012-04-05 11:20:32,437 - goog_closure - DEBUG - on_query_completions prefix: p
+2012-04-05 11:20:32,437 - goog_closure - DEBUG - In TESTING - creating database (This would not happen in prod).
+2012-04-05 11:20:32,937 - goog_closure - DEBUG - on_query_completions prefix: print
+2012-04-05 11:20:32,937 - goog_closure - DEBUG - In TESTING - creating database (This would not happen in prod).
+2012-04-05 11:20:34,388 - goog_closure - DEBUG - on_query_completions prefix: d
+2012-04-05 11:20:34,388 - goog_closure - DEBUG - In TESTING - creating database (This would not happen in prod).
+2012-04-05 11:20:35,292 - goog_closure - DEBUG - on_query_completions prefix: s
+2012-04-05 11:20:35,292 - goog_closure - DEBUG - In TESTING - creating database (This would not happen in prod).
+2012-04-05 11:20:36,634 - goog_closure - DEBUG - Database is not initialised so ignoring this save event.
+2012-04-05 11:20:38,319 - goog_closure - DEBUG - on_query_completions prefix: settings
+2012-04-05 11:20:38,319 - goog_closure - DEBUG - In TESTING - creating database (This would not happen in prod).
+2012-04-05 11:20:55,292 - goog_closure - DEBUG - on_query_completions prefix: g
+2012-04-05 11:20:55,292 - goog_closure - DEBUG - In TESTING - creating database (This would not happen in prod).
+2012-04-05 11:20:56,243 - goog_closure - DEBUG - on_query_completions prefix: s
+2012-04-05 11:20:56,243 - goog_closure - DEBUG - In TESTING - creating database (This would not happen in prod).
+2012-04-05 11:20:58,520 - goog_closure - DEBUG - Database is not initialised so ignoring this save event.
+2012-04-05 11:21:03,372 - goog_closure - DEBUG - Database is not initialised so ignoring this save event.
+2012-04-05 11:21:05,697 - goog_closure - DEBUG - Database is not initialised so ignoring this save event.
+2012-04-05 11:21:08,098 - goog_closure - DEBUG - on_query_completions prefix: setting
+2012-04-05 11:21:08,098 - goog_closure - DEBUG - In TESTING - creating database (This would not happen in prod).
+2012-04-05 11:21:27,474 - goog_closure - DEBUG - Database is not initialised so ignoring this save event.
+2012-04-05 11:21:30,484 - goog_closure - DEBUG - Database is not initialised so ignoring this save event.
+2012-04-05 11:21:34,556 - goog_closure - DEBUG - Database is not initialised so ignoring this save event.
+2012-04-05 11:21:35,102 - goog_closure - DEBUG - on_query_completions prefix: 
+2012-04-05 11:21:35,102 - goog_closure - DEBUG - In TESTING - creating database (This would not happen in prod).
+2012-04-05 11:22:53,226 - goog_closure - DEBUG - Database is not initialised so ignoring this save event.
+2012-04-05 11:24:24,486 - goog_closure - DEBUG - Database is not initialised so ignoring this save event.
+2012-04-05 11:24:39,898 - goog_closure - DEBUG - Database is not initialised so ignoring this save event.
+2012-04-05 11:25:14,219 - goog_closure - DEBUG - Database is not initialised so ignoring this save event.
+2012-04-05 11:25:18,789 - goog_closure - DEBUG - Database is not initialised so ignoring this save event.
+2012-04-05 12:07:35,829 - goog_closure - DEBUG - on_query_completions prefix: l
+2012-04-05 12:07:35,829 - goog_closure - DEBUG - In TESTING - creating database (This would not happen in prod).
+2012-04-05 12:07:36,063 - goog_closure - DEBUG - on_query_completions prefix: lao
+2012-04-05 12:07:36,063 - goog_closure - DEBUG - In TESTING - creating database (This would not happen in prod).
+2012-04-05 12:07:36,141 - goog_closure - DEBUG - on_query_completions prefix: laod
+2012-04-05 12:07:36,141 - goog_closure - DEBUG - In TESTING - creating database (This would not happen in prod).
+2012-04-05 12:07:36,391 - goog_closure - DEBUG - on_query_completions prefix: laode
+2012-04-05 12:07:36,391 - goog_closure - DEBUG - In TESTING - creating database (This would not happen in prod).
+2012-04-05 12:07:36,532 - goog_closure - DEBUG - on_query_completions prefix: laoded
+2012-04-05 12:07:36,532 - goog_closure - DEBUG - In TESTING - creating database (This would not happen in prod).
+2012-04-05 12:07:37,233 - goog_closure - DEBUG - on_query_completions prefix: l
+2012-04-05 12:07:37,233 - goog_closure - DEBUG - In TESTING - creating database (This would not happen in prod).
+2012-04-05 12:07:38,076 - goog_closure - DEBUG - on_query_completions prefix: loaded
+2012-04-05 12:07:38,076 - goog_closure - DEBUG - In TESTING - creating database (This would not happen in prod).
+2012-04-05 12:07:40,051 - goog_closure - DEBUG - Database is not initialised so ignoring this save event.

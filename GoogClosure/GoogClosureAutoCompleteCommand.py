@@ -3,6 +3,7 @@ import sublime_plugin
 import config
 import GoogClosureInitDatabaseCommand
 import re
+import tree_builder
 
 # COMPILED REGEX
 namespace_regex = re.compile("(^.*[^a-zA-Z0-9_.]|^)([a-zA-Z0-9_.]+)$")
@@ -13,22 +14,28 @@ class GoogClosureAutoCompleteCommand(sublime_plugin.EventListener):
 
   def on_pre_save(self, view):
     if config.db == None:
+      # TODO: Consider adding this to a queue to be reprocessed once the DB init is done.
+      config.log.debug("Database is not initialised so ignoring this save event.")
       return
+
     file = view.file_name()
     if not(file in config.db["dependencies"]):
+      config.log.debug("File saved is not in the dependencies map, ignoring.")
       return
+
     namespaces_provided = config.db["dependencies"][file]
-    self.add_file_members_to_tree(namespaces_provided, file)
+    tree_builder.add_file_members_to_tree(namespaces_provided, file)
 
   def on_query_completions(self, view, prefix, locations):
-    config.log.info("on_query_completions prefix: {0}".format(prefix))
+    config.log.debug("on_query_completions prefix: {0}".format(prefix))
 
     if config.db == None:
       if config.TESTING:
+        config.log.debug("In TESTING - creating database (This would not happen in prod).")
         GoogClosureInitDatabaseCommand.GoogClosureInitDatabaseCommand().on_load(view)
-      else:
-        config.log.info("completion ignored as database is not initialised")
-        return
+
+      config.log.info("Completion ignored as database is not initialised")
+      return
 
     compl_default = [view.extract_completions(prefix)]
     compl_default = [(item + "\tDefault", item) for sublist in compl_default
@@ -42,8 +49,7 @@ class GoogClosureAutoCompleteCommand(sublime_plugin.EventListener):
     raw_completions = self._get_completions_from_path(path)
     raw_completions.sort()
 
-    print "auto_complete - completions: {0}".format(raw_completions)
-    config.log.info("auto_complete - completions: {0}".format(raw_completions))
+    config.log.info("auto_complete - path: {0} completions: {1}".format(path, raw_completions))
 
     completions = [(x, x) for x in raw_completions]
     completions.extend(compl_default)
@@ -66,6 +72,7 @@ class GoogClosureAutoCompleteCommand(sublime_plugin.EventListener):
     node = config.db["deps_tree"]
     for step in path:
       if not (step in node):
+        config.log.debug("_get_completions_from_path - path: {0} could not be found.  Looking for partial matches from node: {1}".format(path, node))
         return self._get_partial_matches_from_node(step, node)
       else:
         node = node[step]

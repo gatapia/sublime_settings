@@ -1,4 +1,5 @@
 import logging
+import logging.handlers
 
 # Globals
 initialising = False
@@ -10,7 +11,7 @@ all_dependency_files = []
 
 
 def initialise_logger():
-  file_logger = logging.FileHandler('googcloure.log')
+  file_logger = logging.handlers.RotatingFileHandler('googcloure.log', 'a', 10240)
   file_logger.setLevel(logging.DEBUG)
   formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
   file_logger.setFormatter(formatter)
