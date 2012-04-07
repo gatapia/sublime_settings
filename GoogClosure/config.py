@@ -1,4 +1,5 @@
 import logging
+import inspect
 import logging.handlers
 
 # Globals
@@ -11,12 +12,16 @@ all_dependency_files = []
 
 
 def initialise_logger():
-  file_logger = logging.handlers.RotatingFileHandler('googcloure.log', 'a', 10240)
+  if inspect.stack()[-10][1].find('tests'):
+    return  # No logging for tests as it causes errors
+
+  file_logger = logging.handlers.RotatingFileHandler('googcloure.log', 'a', 102400, 2)
   file_logger.setLevel(logging.DEBUG)
   formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
   file_logger.setFormatter(formatter)
   log.addHandler(file_logger)
   log.setLevel(logging.DEBUG)
+  pass
 
 
 def init():

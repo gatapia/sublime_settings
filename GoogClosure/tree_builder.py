@@ -35,15 +35,15 @@ def get_real_path_for_file(basejs_file, roots, file):
   return None
 
 
-def add_paths_to_tree(namespaces_provided):
-  config.log.debug("Adding namespeces to the deps tree: {0}".format(namespaces_provided))
-  for ns in namespaces_provided:
-    tree_builder._add_node_to_tree(ns)
+def add_namespaces_to_tree(namespaces):
+  config.log.debug("Adding namespeces to the deps tree: {0}".format(namespaces))
+  for namespace in namespaces:
+    tree_builder._add_node_to_tree(namespace)
 
 
 def add_file_members_to_tree(namespaces_provided, file):
-  config.log.debug("Adding file to the deps tree: {0}".format(file))
   curr_namespace = ""
+  nodes = []
   with open(file, "r") as file_stream:
     for line in file_stream:
       matching_namespaces = filter(lambda ns: line.find(ns) >= 0, namespaces_provided)
@@ -58,10 +58,17 @@ def add_file_members_to_tree(namespaces_provided, file):
 
       match1 = member1_regex.search(line)
       match2 = member2_regex.match(line)
+      node = None
+
       if (match1):
-        tree_builder._add_node_to_tree(curr_namespace + "." + match1.group(1))
-      if (match2):
-        tree_builder._add_node_to_tree(curr_namespace + "." + match2.group(2))
+        node = curr_namespace + "." + match1.group(1)
+      if (match2 and match2.group(1) + match2.group(2) != curr_namespace):
+        node = curr_namespace + "." + match2.group(2)
+
+      if node:
+        tree_builder._add_node_to_tree(node)
+        nodes.append(node)
+  config.log.debug("Adding file to the deps tree: {0} - {1}".format(file, node))
 
 
 def _add_node_to_tree(node):

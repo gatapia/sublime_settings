@@ -49,7 +49,7 @@ class GoogClosureAutoCompleteCommand(sublime_plugin.EventListener):
     raw_completions = self._get_completions_from_path(path)
     raw_completions.sort()
 
-    config.log.info("auto_complete - path: {0} completions: {1}".format(path, raw_completions))
+    config.log.info("auto_complete - path: {0} default: {1} completions: {2}".format(path, compl_default, raw_completions))
 
     completions = [(x, x) for x in raw_completions]
     completions.extend(compl_default)

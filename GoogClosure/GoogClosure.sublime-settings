@@ -1,10 +1,9 @@
 {
-  "basejs_file": r"U:\shared\lib\closure-library\closure\goog\base.js",
-  "deps_paths": [r"J:\dev\projects\accc\PicNet.Accc.Mvc\resources\scripts\src\deps.js"],
+  "basejs_file": "U:/shared/lib/closure-library/closure/goog/base.js",
+  "deps_paths": ["C:/dev/projects/accc/PicNet.Accc.Mvc/resources/scripts/src/deps.js"],
   "roots": [
-    r"J:\dev\projects\accc\PicNet.Accc.Mvc\resources\scripts\src\pn.accc ../../../../accc/resources/scripts/src/pn.accc/",
-    r"U:\shared\lib\picnet_closure_repo\src\pn ../../../../../../../shared/picnet_closure_repo/src/pn/",
-    r"U:\shared\lib\tablefilter\src\pn\ui\filter ../../../../../../../shared/tablefilter/src/pn/ui/filter/",
-    r"U:\shared\lib\closure-templates ../../../../../../../shared/closure-templates/"
+    "C:/dev/projects/accc/PicNet.Accc.Mvc/resources/scripts/src/pn.accc ../../../../accc/resources/scripts/src/pn.accc/",
+    "U:/shared/lib/picnet_closure_repo/src/pn ../../../../../../../shared/picnet_closure_repo/src/pn/",
+    "U:/shared/lib/closure-templates ../../../../../../../shared/closure-templates/"
   ]
 }
