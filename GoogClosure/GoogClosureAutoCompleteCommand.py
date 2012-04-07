@@ -35,7 +35,7 @@ class GoogClosureAutoCompleteCommand(sublime_plugin.EventListener):
         GoogClosureInitDatabaseCommand.GoogClosureInitDatabaseCommand().on_load(view)
 
       config.log.info("Completion ignored as database is not initialised")
-      return
+      return []
 
     compl_default = [view.extract_completions(prefix)]
     compl_default = [(item + "\tDefault", item) for sublist in compl_default

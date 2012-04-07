@@ -1,6 +1,7 @@
 import logging
 import inspect
 import logging.handlers
+logging.raiseExceptions = False
 
 # Globals
 initialising = False

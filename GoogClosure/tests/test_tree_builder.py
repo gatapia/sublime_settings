@@ -1,11 +1,9 @@
 import unittest
 import tree_builder
 import config
-import logging
-logging.raiseExceptions
 
 
-class TreeBuilderTests(unittest.TestCase):
+class TestTreeBuilder(unittest.TestCase):
 
   def setUp(self):
     config.db = {

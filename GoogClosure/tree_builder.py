@@ -18,7 +18,7 @@ def add_all_files_to_tree(files):
     tree_builder.add_file_members_to_tree(namespaces_provided, js_file)
 
 
-def get_real_path_for_file(basejs_file, roots, file):
+def get_real_path_for_file(basejs_file, roots, file, must_exist=True):
   # This predicate assumes that all non 'goog' namespaces have a '..' in the path.
   # I'm not sure if this is a safe assumption, I would say it's not
   if file.find("..") < 0:
@@ -30,7 +30,7 @@ def get_real_path_for_file(basejs_file, roots, file):
       if file.startswith(root[1]):
         file = file[len(root[1]):]
         abs_file = os.path.normpath(os.path.join(root[0], file))
-        if os.path.exists(abs_file):
+        if not(must_exist) or os.path.exists(abs_file):
           return abs_file
   return None
 
