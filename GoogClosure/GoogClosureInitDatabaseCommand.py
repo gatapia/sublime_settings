@@ -5,10 +5,14 @@ import threading
 import config
 import init_db
 
-# COMPILED REGEX
-
 
 class GoogClosureInitDatabaseCommand(sublime_plugin.EventListener):
+
+  def on_query_completions(self, view, prefix, locations):  # Only Testing
+    if config.db == None and config.TESTING:
+      config.log.debug("In TESTING - creating database (This would not happen in prod).")
+      self.on_load(view)
+
   def on_load(self, view):
     self.init_database(view)
 

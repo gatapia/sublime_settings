@@ -3,7 +3,7 @@ import config
 import init_db
 
 
-class TestGoogClosureInitDatabaseCommand(unittest.TestCase):
+class TestInitDB(unittest.TestCase):
 
   def setUp(self):
     config.db = {
