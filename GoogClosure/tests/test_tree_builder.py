@@ -9,7 +9,7 @@ class TestTreeBuilder(unittest.TestCase):
     config.db = {
       "deps_tree": {},
       "dependencies": {
-        "tests/dummy.js": {
+        "tests/js/dummy.js": {
           "namespaces_provided": ["namespace.dummy1", "namespace.dummy2"]
         }
       }
@@ -19,7 +19,7 @@ class TestTreeBuilder(unittest.TestCase):
   # add_all_files_to_tree tests
   #############################
   def test_add_all_files_to_tree_for_single_file(self):
-    tree_builder.add_all_files_to_tree(["tests/dummy.js"])
+    tree_builder.add_all_files_to_tree(["tests/js/dummy.js"])
     self.assertEqual({"namespace": {
       "dummy1": {"prop1": {}, "prop2": {}, "func1": {}, "func2": {}},
       "dummy2": {"prop3": {}, "prop4": {}, "func3": {}, "func4": {}},
@@ -33,8 +33,8 @@ class TestTreeBuilder(unittest.TestCase):
     self.assertEqual(actual, r"U:\shared\lib\closure-library\closure\goog\array\array.js")
 
   def test_get_real_path_for_file_for_user_file(self):
-    actual = tree_builder.get_real_path_for_file(r"path\base.js", [["tests\\", "..\\path2\\"]], r"..\path2\dummy.js")
-    self.assertEqual(actual, r"tests\dummy.js")
+    actual = tree_builder.get_real_path_for_file(r"path\base.js", [["tests\\", "..\\path2\\"]], r"..\path2\js\dummy.js")
+    self.assertEqual(actual, r"tests\js\dummy.js")
 
   ##############################
   # add_namespaces_to_tree tests
@@ -49,7 +49,7 @@ class TestTreeBuilder(unittest.TestCase):
   # add_file_members_to_tree tests
   ################################
   def test_add_file_members_to_tree_with_valid_test_file(self):
-    tree_builder.add_file_members_to_tree(["namespace.dummy1", "namespace.dummy2"], "tests/dummy.js")
+    tree_builder.add_file_members_to_tree(["namespace.dummy1", "namespace.dummy2"], "tests/js/dummy.js")
     self.assertEqual({"namespace": {
       "dummy1": {"prop1": {}, "prop2": {}, "func1": {}, "func2": {}},
       "dummy2": {"prop3": {}, "prop4": {}, "func3": {}, "func4": {}},
